@@ -7,7 +7,28 @@ class NavMain extends StatefulWidget {
   State<NavMain> createState() => _NavMainState();
 }
 
-class _NavMainState extends State<NavMain> {
+class _NavMainState extends State<NavMain> with SingleTickerProviderStateMixin {
+  final List<Tab> topNavTabs = const <Tab>[
+    Tab(icon: Icon(Icons.home_outlined)),
+    Tab(icon: Icon(Icons.people_outline)),
+    Tab(icon: Icon(Icons.message_outlined)),
+    Tab(icon: Icon(Icons.notifications_outlined)),
+    Tab(icon: Icon(Icons.video_library_outlined)),
+    Tab(icon: Icon(Icons.shopping_bag_outlined)),
+  ];
+
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    _tabController =
+        TabController(length: topNavTabs.length, initialIndex: 0, vsync: this)
+          ..addListener(() {
+            setState(() {});
+          });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,6 +72,11 @@ class _NavMainState extends State<NavMain> {
             ),
           )
         ],
+        bottom: TabBar(
+          controller: _tabController,
+          indicatorColor: Colors.black,
+          tabs: topNavTabs,
+        ),
       ),
     );
   }

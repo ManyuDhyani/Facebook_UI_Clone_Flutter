@@ -16,8 +16,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Palette.navColor,
       ),
-      home: NavMain(),
       debugShowCheckedModeBanner: false,
+      home: NavMain(),
     );
   }
 }
