@@ -1,3 +1,9 @@
+import 'package:facebook_ui_clone_flutter/Windows/friendDetail.dart';
+import 'package:facebook_ui_clone_flutter/Windows/homeDetail.dart';
+import 'package:facebook_ui_clone_flutter/Windows/marketPlaceDetail.dart';
+import 'package:facebook_ui_clone_flutter/Windows/messageDetail.dart';
+import 'package:facebook_ui_clone_flutter/Windows/notificationDetail.dart';
+import 'package:facebook_ui_clone_flutter/Windows/videoDetail.dart';
 import 'package:flutter/material.dart';
 
 class NavMain extends StatefulWidget {
@@ -78,6 +84,14 @@ class _NavMainState extends State<NavMain> with SingleTickerProviderStateMixin {
           tabs: topNavTabs,
         ),
       ),
+      body: TabBarView(controller: _tabController, children: [
+        homeDetail(),
+        friendDetail(),
+        messageDetail(),
+        notificationDetail(),
+        videoDetail(),
+        marketPlaceDetail(),
+      ]),
     );
   }
 }
