@@ -5,6 +5,7 @@ import 'package:facebook_ui_clone_flutter/Windows/messageDetail.dart';
 import 'package:facebook_ui_clone_flutter/Windows/notificationDetail.dart';
 import 'package:facebook_ui_clone_flutter/Windows/videoDetail.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class NavMain extends StatefulWidget {
   NavMain({Key? key}) : super(key: key);
@@ -35,63 +36,77 @@ class _NavMainState extends State<NavMain> with SingleTickerProviderStateMixin {
     super.initState();
   }
 
+  Future<bool> _onWillPop() async {
+    if (_tabController.index == 0) {
+      await SystemNavigator.pop();
+    }
+    Future.delayed(const Duration(milliseconds: 200), () {
+      _tabController.index = 0;
+    });
+
+    return _tabController.index == 0;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'facebook',
-          style: TextStyle(
-            fontFamily: 'Klavika',
-            fontSize: 34,
-            color: Colors.blue[700],
-          ),
-        ),
-        actions: [
-          Container(
-            child: IconButton(
-              icon: const Icon(Icons.search),
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              onPressed: () {
-                print("Search button is pressed");
-              },
-            ),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.grey[300],
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'facebook',
+            style: TextStyle(
+              fontFamily: 'Klavika',
+              fontSize: 34,
+              color: Colors.blue[700],
             ),
           ),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: IconButton(
-              icon: const Icon(Icons.menu),
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              onPressed: () {
-                print("Menu button is pressed");
-              },
+          actions: [
+            Container(
+              child: IconButton(
+                icon: const Icon(Icons.search),
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onPressed: () {
+                  print("Search button is pressed");
+                },
+              ),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.grey[300],
+              ),
             ),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.grey[300],
-            ),
-          )
-        ],
-        bottom: TabBar(
-          controller: _tabController,
-          indicatorColor: Colors.black,
-          tabs: topNavTabs,
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: IconButton(
+                icon: const Icon(Icons.menu),
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onPressed: () {
+                  print("Menu button is pressed");
+                },
+              ),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.grey[300],
+              ),
+            )
+          ],
+          bottom: TabBar(
+            controller: _tabController,
+            indicatorColor: Colors.black,
+            tabs: topNavTabs,
+          ),
         ),
+        body: TabBarView(controller: _tabController, children: [
+          homeDetail(),
+          friendDetail(),
+          messageDetail(),
+          notificationDetail(),
+          videoDetail(),
+          marketPlaceDetail(),
+        ]),
       ),
-      body: TabBarView(controller: _tabController, children: [
-        homeDetail(),
-        friendDetail(),
-        messageDetail(),
-        notificationDetail(),
-        videoDetail(),
-        marketPlaceDetail(),
-      ]),
     );
   }
 }
