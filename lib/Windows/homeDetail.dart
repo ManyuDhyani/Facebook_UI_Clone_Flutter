@@ -1,5 +1,6 @@
 import 'package:facebook_ui_clone_flutter/Windows/homeWidgets/homeMenuBar.dart';
 import 'package:facebook_ui_clone_flutter/Windows/homeWidgets/postBar.dart';
+import 'package:facebook_ui_clone_flutter/Windows/homeWidgets/postFeed.dart';
 import 'package:facebook_ui_clone_flutter/Windows/homeWidgets/storyBar.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +24,7 @@ class _homeDetailState extends State<homeDetail> {
           const Divider(thickness: 1, color: Colors.black12),
           storyBar(),
           const Divider(thickness: 1, color: Colors.black12),
+          PostFeed(),
         ],
       ),
     );
